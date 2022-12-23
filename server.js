@@ -28,7 +28,7 @@ app.get("/user", async(req, res)=> {
 })
 
 
-app.get("/username", function() {
+app.get("/username", function(req, res) {
     res.send("this is the username");
 })
 
