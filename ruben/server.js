@@ -80,7 +80,6 @@ axios
 
 })
 
-
 app.post("/signup", (req, res)=>{
   console.log("In sign up loop")
   const  email = req.body;
