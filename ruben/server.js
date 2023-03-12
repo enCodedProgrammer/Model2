@@ -93,7 +93,7 @@ app.post("/signup", (req, res)=>{
         res.status(200).send({ user: user});
         console.log("user created.", user);
     })).catch((error => {
-        res.status(404).send({ message: error.message});
+        res.status(400).send({ message: error.message});
       console.log("An error occured", error.code, error.message);
     }))
 
@@ -119,7 +119,7 @@ app.post("/signin", (req, res)=>{
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      res.status(404).send({ message: errorMessage});
+      res.status(400).send({ message: errorMessage});
 
     });
   })
