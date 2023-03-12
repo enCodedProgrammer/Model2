@@ -82,17 +82,18 @@ axios
 
 app.post("/signup", (req, res)=>{
   console.log("In sign up loop")
-  const  email = req.body;
-  const  password = req.body;
-
-  console.log(email, password)
   console.log(req.body)
+  const data = JSON.stringify(req.body)
 
-    createUserWithEmailAndPassword(auth, email, password)
+  const newData = JSON.parse(data)
+
+    createUserWithEmailAndPassword(auth, newData.email, newData.password)
     .then((userCredential => {
         const user = userCredential.user;
+        res.status(200).send({ user: user});
         console.log("user created.", user);
     })).catch((error => {
+        res.status(404).send({ message: error.message});
       console.log("An error occured", error.code, error.message);
     }))
 
@@ -103,16 +104,23 @@ app.post("/signup", (req, res)=>{
 app.post("/signin", (req, res)=>{
   console.log("In sign IN loop")
   const email = req.body.email;
+  const password = req.body.password;
+
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      console.log(user)
+      res.status(200).send({ user: user});
+
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      res.status(404).send({ message: errorMessage});
+
     });
   })
 
