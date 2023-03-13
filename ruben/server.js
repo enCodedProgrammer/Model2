@@ -1,5 +1,5 @@
  const express = require("express");
- const cors = require("cors");
+ const Cors = require("cors");
  const bodyParser = require("body-parser");
  const axios  = require("axios");
  const { initializeApp } = require("firebase/app");
@@ -11,6 +11,23 @@
  app.use(cors({}))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+
+
+app.use(Cors(
+  {credentials: true, origin:
+    //  'https://moveeet.herokuapp.com'
+    // "https://mobile-logistics-1a05b.web.app"
+    "http://localhost:3000"
+    }
+  ));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credentials',true);
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader('Access-Control-Allow-Headers', "Content-Type, application/json");
+  next();
+});
 
 
 
